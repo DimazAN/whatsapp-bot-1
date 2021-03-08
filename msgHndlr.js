@@ -44,27 +44,27 @@ module.exports = msgHandler = async (client, message) => {
         }
 
         const mess = {
-            wait: '[ WAIT ] Sedang di proses⏳ silahkan tunggu sebentar',
+            wait: '*「 WAIT 」 * \nSedang di proses⏳ Silahkan tunggu sebentar!',
             error: {
-                St: '[❗] Kirim gambar dengan caption *!sticker* atau tag gambar yang sudah dikirim',
+                St: '[❗] Kirim gambar dengan caption *!sticker* atau tag gambar yang sudah dikirim!',
                 Qm: '[❗] Terjadi kesalahan, mungkin themenya tidak tersedia!',
-                Yt3: '[❗] Terjadi kesalahan, tidak dapat meng konversi ke mp3!',
-                Yt4: '[❗] Terjadi kesalahan, mungkin error di sebabkan oleh sistem.',
-                Ig: '[❗] Terjadi kesalahan, mungkin karena akunnya private',
-                Ki: '[❗] Bot tidak bisa mengeluarkan admin group!',
+                Yt3: '[❗] Terjadi kesalahan, tidak dapat mengkonversi ke MP3!',
+                Yt4: '[❗] Terjadi kesalahan, mungkin error disebabkan oleh sistem.',
+                Ig: '[❗] Terjadi kesalahan, mungkin karena akun-nya private',
+                Ki: '[❗] Bot tidak dapat mengeluarkan admin group!',
                 Ad: '[❗] Tidak dapat menambahkan target, mungkin karena di private',
-                Iv: '[❗] Link yang anda kirim tidak valid!'
+                Iv: '[❗] Link yang Anda kirim tidak valid!'
             }
         }
         const apiKey = 'API-KEY' // apikey you can get it at https://mhankbarbar.tech/api
-        const time = moment(t * 1000).format('DD/MM HH:mm:ss')
+        const time = moment(t * 1000).format('d MMMM yyyy HH:mm:ss')
         const botNumber = await client.getHostNumber()
         const blockNumber = await client.getBlockedIds()
         const groupId = isGroupMsg ? chat.groupMetadata.id : ''
         const groupAdmins = isGroupMsg ? await client.getGroupAdmins(groupId) : ''
         const isGroupAdmins = isGroupMsg ? groupAdmins.includes(sender.id) : false
         const isBotGroupAdmins = isGroupMsg ? groupAdmins.includes(botNumber + '@c.us') : false
-        const ownerNumber = ["628xxx@c.us","55xxxxx"] // replace with your whatsapp number
+        const ownerNumber = ["15109994201@c.us","6282140604765"] // replace with your whatsapp number
         const isOwner = ownerNumber.includes(sender.id)
         const isBlocked = blockNumber.includes(sender.id)
         const isNsfw = isGroupMsg ? nsfw_.includes(chat.id) : false
@@ -105,7 +105,7 @@ module.exports = msgHandler = async (client, message) => {
             if (isMedia) {
                 if (mimetype === 'video/mp4' && message.duration < 10 || mimetype === 'image/gif' && message.duration < 10) {
                     const mediaData = await decryptMedia(message, uaOverride)
-                    client.reply(from, '[WAIT] Sedang di proses⏳ silahkan tunggu ± 1 min!', id)
+                    client.reply(from, '*「 WAIT 」*\nSedang di proses⏳ Silahkan tunggu ± 1 menit!', id)
                     const filename = `./media/aswu.${mimetype.split('/')[1]}`
                     await fs.writeFileSync(filename, mediaData)
                     await exec(`gify ${filename} ./media/output.gif --fps=30 --scale=240:240`, async function (error, stdout, stderr) {
@@ -113,7 +113,7 @@ module.exports = msgHandler = async (client, message) => {
                         await client.sendImageAsSticker(from, `data:image/gif;base64,${gif.toString('base64')}`)
                     })
                 } else (
-                    client.reply(from, '[❗] Kirim video dengan caption *!stickerGif* max 10 sec!', id)
+                    client.reply(from, '[❗] Kirim video dengan caption *!stickerGif*\nMaks durasi 10 detik!', id)
                 )
             }
             break
@@ -126,7 +126,7 @@ module.exports = msgHandler = async (client, message) => {
                     var base64img = imageBase64
                     var outFile = './media/img/noBg.png'
                     // untuk api key kalian bisa dapatkan pada website remove.bg
-                    var result = await removeBackgroundFromImageBase64({ base64img, apiKey: 'API-KEY', size: 'auto', type: 'auto', outFile })
+                    var result = await removeBackgroundFromImageBase64({ base64img, apiKey: 'YfMj73BaLQTWmsCUVNxwx846', size: 'auto', type: 'auto', outFile })
                     await fs.writeFile(outFile, result.base64img)
                     await client.sendImageAsSticker(from, `data:${mimetype};base64,${result.base64img}`)
                 } catch(err) {
@@ -165,7 +165,7 @@ module.exports = msgHandler = async (client, message) => {
                     client.sendPtt(from, './media/tts/resAr.mp3', id)
                 })
             } else {
-                client.reply(from, 'Masukkan data bahasa : [id] untuk indonesia, [en] untuk inggris, [jp] untuk jepang, dan [ar] untuk arab', id)
+                client.reply(from, 'Masukkan data bahasa : [id] untuk Indonesia, [en] untuk Inggris, [jp] untuk Jepang, dan [ar] untuk Arab', id)
             }
             break
         case '!nulis':
@@ -458,7 +458,7 @@ module.exports = msgHandler = async (client, message) => {
             const chatz = await client.getAllChatIds()
             for (let ids of chatz) {
                 var cvk = await client.getChatById(ids)
-                if (!cvk.isReadOnly) await client.sendText(ids, `[ Shinomiya Kaguya BOT Broadcast ]\n\n${msg}`)
+                if (!cvk.isReadOnly) await client.sendText(ids, `${msg}\n\n*_「 NCT BOT BROADCAST 」_*`)
             }
             client.reply(from, 'Broadcast Success!', id)
             break
@@ -484,7 +484,7 @@ module.exports = msgHandler = async (client, message) => {
                 hehe += '╠➥'
                 hehe += ` @${groupMem[i].id.replace(/@c.us/g, '')}\n`
             }
-            hehe += '╚═〘 Shinomiya Kaguya BOT 〙'
+            hehe += '╚═〘 NCT BOT 〙'
             await client.sendTextWithMentions(from, hehe)
             break
         case '!kickall':
@@ -503,11 +503,11 @@ module.exports = msgHandler = async (client, message) => {
             client.reply(from, 'Succes kick all member', id)
             break
         case '!leaveall':
-            if (!isOwner) return client.reply(from, 'Perintah ini hanya untuk Owner bot', id)
+            if (!isOwner) return client.reply(from, 'Perintah ini hanya untuk Owner BOT', id)
             const allChats = await client.getAllChatIds()
             const allGroups = await client.getAllGroups()
             for (let gclist of allGroups) {
-                await client.sendText(gclist.contact.id, `Maaf bot sedang pembersihan, total chat aktif : ${allChats.length}`)
+                await client.sendText(gclist.contact.id, `Maaf bot sedang pembersihan. Total chat aktif : ${allChats.length}`)
                 await client.leaveGroup(gclist.contact.id)
             }
             client.reply(from, 'Succes leave all group!', id)
